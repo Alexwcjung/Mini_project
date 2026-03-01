@@ -5,7 +5,7 @@ import requests
 st.set_page_config(page_title="Readings and in-class discussion")
 
 # st.title("Project Dashboard")
-st.caption("Readings and discussions")
+# st.caption("Readings and discussions")
 
 # 1. Define the tab names
 tab_labels = ["🏠 Reading list", "💦 In-class presentation", "📂 Discussions", ]
