@@ -1,4 +1,5 @@
 import streamlit as st
+import requests
 
 # Set the page title
 st.set_page_config(page_title="Readings and in-class discussion")
