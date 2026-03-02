@@ -57,8 +57,12 @@ with tab3:
     image_options = {
         "Select an image...": None,
         "Supplementary book Chapter 1": "https://raw.githubusercontent.com/MK316/Collaboration26/main/infographic/CH01_infographic.png",
-        "Reading #1": "https://raw.githubusercontent.com/MK316/Applied-linguistics/main/images/ipa_chart.jpeg",
-        "Reading #2": "https://raw.githubusercontent.com/MK316/Collaboration26/main/images/workflow.png"
+        "Reading #1": "https://raw.githubusercontent.com/MK316/Collaboration26/main/infographic/Reading01_infographic.png",
+        "Reading #2": "https://raw.githubusercontent.com/MK316/Collaboration26/main/infographic/Reading02_infographic.png",
+        "Reading #3": "https://raw.githubusercontent.com/MK316/Collaboration26/main/infographic/Reading03_infographic.png",
+        "Reading #4": "https://raw.githubusercontent.com/MK316/Collaboration26/main/infographic/Reading04_infographic.png",
+        "Reading #5": "https://raw.githubusercontent.com/MK316/Collaboration26/main/infographic/Reading05_infographic.png",
+        "Reading #6": "https://raw.githubusercontent.com/MK316/Collaboration26/main/infographic/Reading06_infographic.png",
     }
 
     # 2. Create the dropdown box
