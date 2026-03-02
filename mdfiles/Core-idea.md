@@ -91,9 +91,12 @@ Engagement in humanities is not mere fun but **epistemic engagement**—where st
 ### 🏛️ Pedagogical Implication
 
 Activities such as:
-1. **Creating digital artifacts** (e.g., interactive maps, digital archives).
-2. **Designing interpretive projects** that bridge history with modern issues.
-3. **Building AI-mediated applications** (e.g., Streamlit apps for linguistic analysis).
+
++ Creating digital artifacts: Designing AI-powered interactive storyboards or digital vocabulary maps that visualize the semantic connections between abstract English idioms and their cultural contexts.
+
++ Designing interpretive projects: Conducting comparative sentiment analysis between original literary texts (e.g., Shakespeare) and modern-day AI-translated versions to explore nuances in tone and style.
+
++ Building AI-mediated applications: Developing simple Streamlit-based automated feedback tools or "VOT (Voice Onset Time) visualizers" that help students analyze their own pronunciation or linguistic patterns in real-time.
 
 👉 **Engagement arises from participation and ownership; students transform from consumers into creators.**
 
