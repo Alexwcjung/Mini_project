@@ -1,5 +1,5 @@
-# Teaching Humanities in the AI Era
-## The Pedagogical Path: From Difficulty → Depth → Engagement
+# 1. Teaching Humanities in the AI Era
+### The Pedagogical Path: From Difficulty → Depth → Engagement
 
 ![img](https://github.com/MK316/Applied-linguistics/raw/main/images/core-ideas.png)
 
