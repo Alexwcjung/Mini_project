@@ -287,14 +287,20 @@ with tabs[6]:
 
                 # Download button
 # [수정된 부분] Download button 로직
-                csv_buffer = io.StringIO()
+# [수정된 부분] Excel 호환성을 위한 인코딩 설정
+                csv_buffer = io.BytesIO() # StringIO 대신 BytesIO 사용 (인코딩 처리에 더 안정적)
                 
-                # index=False와 함께 encoding='utf-8-sig'를 지정하여 엑셀 한글 깨짐 방지
-                grouped_df.to_csv(csv_buffer, index=False, encoding='utf-8-sig')
-                
+                # 한국 엑셀에서 가장 안전한 'cp949' 또는 'euc-kr' 시도
+                try:
+                    grouped_df.to_csv(csv_buffer, index=False, encoding='cp949')
+                except UnicodeEncodeError:
+                    # 만약 cp949에 없는 특수문자가 있다면 다시 utf-8-sig로 백업
+                    csv_buffer = io.BytesIO()
+                    grouped_df.to_csv(csv_buffer, index=False, encoding='utf-8-sig')
+
                 st.download_button(
-                    label="📥 Download Grouped CSV",
-                    data=csv_buffer.getvalue(), # encode('utf-8')를 따로 하지 않아도 StringIO에서 처리됨
+                    label="📥 Download Grouped CSV (Excel Optimized)",
+                    data=csv_buffer.getvalue(),
                     file_name=f"grouped_{selected_course.replace(' ', '_')}.csv",
                     mime="text/csv"
                 )
