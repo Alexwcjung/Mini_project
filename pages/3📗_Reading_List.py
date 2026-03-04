@@ -28,6 +28,7 @@ with tab1:
       + Reading #7: [Mishra & Koehler (2006)](https://rediie.cl/wp-content/uploads/Mishra-Koehler.pdf) Mishra, P., & Koehler, M. J. (2006). Technological pedagogical content knowledge: A framework for teacher knowledge. _Teachers College Record_, 108(6), 1017–1054. https://doi.org/10.1111/j.1467-9620.2006.00684.x
     
       📗 Spplementary book: _An Introduction to Applied Linguistics_ (2007; 2nd ed.) by A. Davies, Edinburgh University Press.
+      [Book cover](https://pasca.uns.ac.id/s3linguistik/wp-content/uploads/sites/44/2016/10/an-introduction-to-applied-linguistics.pdf)
       """)
 with tab2:
     
