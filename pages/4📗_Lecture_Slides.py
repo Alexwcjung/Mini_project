@@ -24,31 +24,6 @@ def extract_numbers(s: str):
     nums = re.findall(r"\d+", s)
     return tuple(int(x) for x in nums) if nums else (10**9,)
 
-# @st.cache_data(ttl=3600, show_spinner=False)
-# def list_png_files_in_folder(folder: str):
-#     headers = {}
-#     token = st.secrets.get("GITHUB_TOKEN", None)
-#     if token:
-#         headers["Authorization"] = f"token {token}"
-
-#     url = f"{API_BASE}/{folder}?ref={BRANCH}"
-#     r = requests.get(url, headers=headers, timeout=15)
-
-#     if r.status_code != 200:
-#         return [], f"GitHub API error {r.status_code}: {r.text[:200]}"
-
-#     data = r.json()
-#     if not isinstance(data, list):
-#         return [], "Unexpected API response (not a folder listing)."
-
-#     pngs = [
-#         item["name"] for item in data
-#         if item.get("type") == "file"
-#         and item.get("name", "").lower().endswith(".png")
-#     ]
-#     pngs.sort(key=lambda name: (extract_numbers(name), name.lower()))
-#     return pngs, None
-
 
 @st.cache_data(ttl=3600, show_spinner=False)
 def list_png_files_in_folder(folder: str):
