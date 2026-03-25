@@ -101,10 +101,12 @@ SUMMARY_FILES = {
     "Introduction: Defining AL (Davies, 2014)": "Chapter01.md",
     "Reading #1: Translanguaging (Li, 2018)": "Reading01.md",
     "Reading #2: Alignment Issues (Curry, 2025)": "Reading02.md",
-    "Reading #3: Computational Thinking (Jacob, 2018)": "Reading03.md",
-    "Reading #4: Computational Thinking (Jacob, 2018)": "Reading04.md",
-    "Reading #5: Computational Thinking (Jacob, 2018)": "Reading05.md",
-    "Reading #6: Computational Thinking (Jacob, 2018)": "Reading06.md",
+    "Reading #3: Computational Thinking (Jacob & Warschauer, 2018)": "Reading03.md",
+    "Reading #4: Computational Thinking (UNESCO, 2025)": "Reading04.md",
+    "Reading #5: AI application in higher education (Zawacki-Richter et al., 2019)": "Reading05.md",
+    "Reading #6: AI from a trranslanguaging perspective (Jeon et al., 2025)": "Reading06.md",
+    "Reading #7: Digital activities and Vocabulary Knowledge (Lai et al, 2025)": "Reading06.md",
+    "Reading #8: TPACK (Mishra & Koehler, 2006)": "Reading06.md",
 }
 
 # --- 2. 탭 생성 ---
