@@ -104,6 +104,11 @@ CLASS_VIDEOS = {
         "url": "https://youtu.be/JqBV-wug-WQ",
         "caption": "인간의 지식처리와 인공지능의 데이터처리 방식",
     },    
+     "Week 03 · CT and Literacy: Jacob & Warschauer (2018)": {
+        "url": "https://youtu.be/bRVTDYAfj3M",
+        "caption": "인공지능 시대의 새로운 문해력 정의 및 접근방식",
+    },  
+    
 }
 
 # ---------- "Tabs" selector (segmented if available; fallback to radio) ----------
