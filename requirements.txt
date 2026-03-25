@@ -14,7 +14,6 @@ gspread
 google-auth
 openpyxl
 textstat
-stats
 
 scipy
 seaborn
