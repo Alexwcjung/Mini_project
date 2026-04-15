@@ -117,7 +117,7 @@ SUMMARY_FILES = {
 }
 
 # --- 2. Create Tabs ---
-tab_labels = ["🏠 Reading list", "🌱 Core idea", "💦 In-class presentation", "🖼️ Infographics", "📝 Reading Summary", "🎬 Video"]
+tab_labels = ["🏠 Reading", "💦 Presentation", "🖼️ Infographics", "📝 Summary", "🎬 Video", "🌱 Core idea"]
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(tab_labels)
 
 # --- 3. Tab Contents ---
@@ -142,17 +142,6 @@ with tab1:
       """)
 
 with tab2:
-    url = "https://raw.githubusercontent.com/MK316/Applied-linguistics/main/mdfiles/Core-idea.md"
-    try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            st.markdown(response.text)
-        else:
-            st.error(f"Failed to fetch Core-idea. (HTTP {response.status_code})")
-    except Exception as e:
-        st.error(f"An error occurred: {e}")
-
-with tab3:
     st.caption("Latest documentation from Github [Collaboration26](https://github.com/MK316/Collaboration26).")
     readme_url = "https://raw.githubusercontent.com/MK316/Collaboration26/main/README.md"
     try:
@@ -164,7 +153,7 @@ with tab3:
     except Exception as e:
         st.error(f"Error fetching file: {e}")
 
-with tab4:
+with tab3:
     image_options = {
         "Select an image...": None,
         "Supplementary book Chapter 1": "https://raw.githubusercontent.com/MK316/Collaboration26/main/infographic/CH01_infographic.png",
@@ -185,7 +174,7 @@ with tab4:
     else:
         st.info("Please select an image from the menu.")
 
-with tab5:
+with tab4:
     st.markdown("### 📝 Reading Summary")
     st.caption("Github [Collaboration26/Reading_summary](https://github.com/MK316/Collaboration26/tree/main/Reading_summary)")
     
@@ -209,7 +198,7 @@ with tab5:
         st.info("Select a summary from the menu to display the content.")
 
 # 🎬 6. Video Tab (Updated Layout: Video BELOW Selection)
-with tab6:
+with tab5:
     st.markdown("### 🎬 Class Video Library")
     
     # Category selection
@@ -237,3 +226,14 @@ with tab6:
     # 3. Video Player (Below the dropdown)
     st.subheader(f"📺 Now Playing: {selected_label}")
     render_player(target['url'])
+
+with tab6:
+    url = "https://raw.githubusercontent.com/MK316/Applied-linguistics/main/mdfiles/Core-idea.md"
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            st.markdown(response.text)
+        else:
+            st.error(f"Failed to fetch Core-idea. (HTTP {response.status_code})")
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
