@@ -1,8 +1,16 @@
+
+# ❄️ App deployment online
++ Gradio
++ [Huggingface sample](https://huggingface.co/spaces/FrameAI4687/Omni-Video-Factory), [Huggingface practice](https://github.com/MK316/Coding4ET/blob/main/Lessons/huggingface_deploy.ipynb)
++ Streamlit
++ And more
+  
+
+
 # ❄️ Streamlit Guideline
 
 + Web link: https://streamlit.io
-
-
++ 
 ### 1. Overview
 ![streamlit](https://github.com/MK316/Applied-linguistics/raw/main/pages/images/streamlit-intro.png)
 
