@@ -7,6 +7,6 @@
 ![streamlit](https://github.com/MK316/Applied-linguistics/raw/main/pages/images/streamlit-intro.png)
 
 
-### 2. Deployment: Step by step
+### 2. App deployment online
 
 ![streamlit](https://github.com/MK316/Applied-linguistics/raw/main/pages/images/deploy1.png)
