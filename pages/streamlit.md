@@ -119,25 +119,25 @@ gTTS
 ##### <Ideas>
 + App Design Description: This app can be described through the following functional components:
 
-1. Text input module
+1. Text input module:  
 The app begins with a text box where the user pastes a passage. This serves as the main input area for all later processing.
 
-2. Sentence segmentation module
+2. Sentence segmentation module:  
 After the text is entered, the app divides the passage into sentence units based on sentence-final punctuation. This allows the text to be handled not only as a whole passage but also as smaller selectable parts.
 
-3. Sentence selection interface
+3. Sentence selection interface:  
 The segmented sentences are presented in a dropdown menu. Each item is labeled with a sentence number and a short preview based on the first few words, making navigation simple and efficient.
 
-4. Audio generation module
+4. Audio generation module:  
 When a sentence is selected, the app converts that sentence into speech using a text-to-speech engine. This module provides immediate audio output for the chosen segment.
 
-5. Passage display module
+5. Passage display module:  
 The full original passage is shown below the selection area so that the user can continue to view the text in its complete form.
 
-6. Highlighting function
+6. Highlighting function:  
 Within the full passage, the selected sentence is visually highlighted. This helps the user identify the exact location of the sentence in context.
 
-7. Language selection option
+7. Language selection option:  
 The app includes a language selection feature for text-to-speech output. This allows the same interface to support multiple languages.
 
 ##### Compact summary
