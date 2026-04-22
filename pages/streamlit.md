@@ -11,10 +11,36 @@
 
 ![streamlit](https://github.com/MK316/Applied-linguistics/raw/main/pages/images/deploy1.png)
 
-### Sample app code: my TTS app
+### Sample app code
 
-#### 1. app.py code
-   
+#### 1. TTS application
+
+##### App Design Description
+
+1. Text input module
+The app provides a text box where the user enters the text to be converted into speech.
+
+2. Language selection module
+A dropdown menu allows the user to choose the target language or accent for audio generation.
+
+3. Audio generation trigger
+A button initiates the text-to-speech process only when the user is ready.
+
+4. Text-to-speech conversion module
+The input text is processed through Google TTS, with language-specific settings applied according to the selected option.
+
+5. Audio playback module
+The generated speech is immediately returned as playable audio within the same interface.
+
+6. Example text support
+Sample multilingual captions are displayed below the main tool to help users test the app quickly.
+
+###### Compact summary
+
+text input → language selection → conversion trigger → TTS generation → audio playback → sample text support
+
+🌀 Code to copy
+
 ```
 import streamlit as st
 from gtts import gTTS
@@ -75,6 +101,14 @@ st.caption("🇯🇵 Japanese: 教師が設計したコーディングアプリ�
 
 #### 2. requirements.txt
 
++ A requirements.txt file is a simple text file that lists the Python packages needed for your app or project to run properly. When the app is deployed, the platform reads this file and installs the required libraries automatically.
+
++ In other words, this file tells the system, “These are the packages my code depends on.”
+
++ For example, if a Streamlit app uses Streamlit and Google Text-to-Speech, the requirements.txt file may look like this:
+
+🌀 Code to copy
+
 ```
 streamlit
 gTTS
@@ -114,7 +148,7 @@ In design terms, the app consists of:
 
 This structure makes the app easy to describe as a modular, interactive reading and listening support tool.
 
-Code to copy
+🌀 Code to copy
 
 ```
 import streamlit as st
