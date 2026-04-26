@@ -1,178 +1,125 @@
 import streamlit as st
-import random
 
-st.set_page_config(page_title="영어 시제 퀴즈", layout="centered")
+st.set_page_config(page_title="Tense Practice", layout="centered")
 
-st.title("⏳ Alex선생님과 함께하는 영어 시제 퀴즈")
-st.caption("빈칸에 알맞은 표현을 고르는 30문제 · 4지선다 퀴즈")
+st.title("⏳ Tense Practice")
+st.caption("현재형, 현재진행형, 과거형, 미래형 중 알맞은 표현을 고르세요.")
+
+TOTAL_QUESTIONS = 20
 
 # ---------------------------
-# 문제 데이터
+# 문제 목록
+# 학생마다 같은 순서로 나오도록 random 사용 안 함
 # ---------------------------
-question_data = [
+quiz_data = [
     {
-        "question": "She (     ) a book now.",
+        "sentence": "She (     ) a book now.",
         "answer": "is reading",
-        "choices": ["is reading", "reads", "read", "will read"]
+        "choices": ["reads", "is reading", "read", "will read"]
     },
     {
-        "question": "I (     ) lunch every day.",
-        "answer": "eat",
-        "choices": ["am eating", "eat", "ate", "will eat"]
-    },
-    {
-        "question": "They (     ) soccer yesterday.",
+        "sentence": "They (     ) soccer yesterday.",
         "answer": "played",
         "choices": ["play", "are playing", "played", "will play"]
     },
     {
-        "question": "He (     ) to school tomorrow.",
-        "answer": "will go",
-        "choices": ["goes", "went", "is going", "will go"]
+        "sentence": "I (     ) breakfast every morning.",
+        "answer": "eat",
+        "choices": ["am eating", "ate", "will eat", "eat"]
     },
     {
-        "question": "We (     ) TV now.",
-        "answer": "are watching",
-        "choices": ["watch", "watched", "are watching", "will watch"]
+        "sentence": "He (     ) his friend tomorrow.",
+        "answer": "will meet",
+        "choices": ["meets", "met", "will meet", "is meeting"]
     },
     {
-        "question": "My father (     ) coffee every morning.",
+        "sentence": "We (     ) English now.",
+        "answer": "are studying",
+        "choices": ["studied", "study", "are studying", "will study"]
+    },
+    {
+        "sentence": "My father (     ) coffee every day.",
         "answer": "drinks",
-        "choices": ["is drinking", "drinks", "drank", "will drink"]
+        "choices": ["drinks", "is drinking", "drank", "will drink"]
     },
     {
-        "question": "The baby (     ) last night.",
-        "answer": "cried",
-        "choices": ["cries", "is crying", "cried", "will cry"]
+        "sentence": "The students (     ) to the teacher now.",
+        "answer": "are listening",
+        "choices": ["listen", "listened", "will listen", "are listening"]
     },
     {
-        "question": "I (     ) my homework tonight.",
-        "answer": "will do",
+        "sentence": "I (     ) my homework last night.",
+        "answer": "did",
         "choices": ["do", "am doing", "did", "will do"]
     },
     {
-        "question": "She (     ) dinner now.",
-        "answer": "is cooking",
-        "choices": ["cooks", "cooked", "is cooking", "will cook"]
-    },
-    {
-        "question": "He (     ) English very well.",
-        "answer": "speaks",
-        "choices": ["is speaking", "speaks", "spoke", "will speak"]
-    },
-    {
-        "question": "We (     ) in the park yesterday.",
-        "answer": "walked",
-        "choices": ["walk", "are walking", "walked", "will walk"]
-    },
-    {
-        "question": "They (     ) their grandma next weekend.",
-        "answer": "will visit",
-        "choices": ["visit", "visited", "are visiting", "will visit"]
-    },
-    {
-        "question": "I (     ) to music now.",
-        "answer": "am listening",
-        "choices": ["listen", "listened", "am listening", "will listen"]
-    },
-    {
-        "question": "She (     ) breakfast at 7 every day.",
-        "answer": "has",
-        "choices": ["is having", "has", "had", "will have"]
-    },
-    {
-        "question": "My friends (     ) a movie last Saturday.",
-        "answer": "watched",
-        "choices": ["watch", "are watching", "watched", "will watch"]
-    },
-    {
-        "question": "He (     ) his uncle next month.",
-        "answer": "will meet",
-        "choices": ["meets", "met", "is meeting", "will meet"]
-    },
-    {
-        "question": "The students (     ) in the classroom now.",
-        "answer": "are studying",
-        "choices": ["study", "studied", "are studying", "will study"]
-    },
-    {
-        "question": "My mother (     ) dinner every evening.",
-        "answer": "makes",
-        "choices": ["is making", "makes", "made", "will make"]
-    },
-    {
-        "question": "I (     ) my phone at home yesterday.",
-        "answer": "left",
-        "choices": ["leave", "am leaving", "left", "will leave"]
-    },
-    {
-        "question": "We (     ) to Busan next week.",
-        "answer": "will travel",
-        "choices": ["travel", "traveled", "are traveling", "will travel"]
-    },
-    {
-        "question": "He (     ) a shower now.",
-        "answer": "is taking",
-        "choices": ["takes", "took", "is taking", "will take"]
-    },
-    {
-        "question": "She (     ) the piano very well.",
-        "answer": "plays",
-        "choices": ["is playing", "plays", "played", "will play"]
-    },
-    {
-        "question": "They (     ) late for school yesterday.",
-        "answer": "were",
-        "choices": ["are", "were", "will be", "being"]
-    },
-    {
-        "question": "I (     ) busy tomorrow.",
-        "answer": "will be",
-        "choices": ["am", "was", "will be", "being"]
-    },
-    {
-        "question": "The dog (     ) on the sofa now.",
-        "answer": "is sleeping",
-        "choices": ["sleeps", "slept", "is sleeping", "will sleep"]
-    },
-    {
-        "question": "My brother (     ) basketball after school.",
-        "answer": "plays",
-        "choices": ["is playing", "plays", "played", "will play"]
-    },
-    {
-        "question": "We (     ) our room yesterday.",
-        "answer": "cleaned",
-        "choices": ["clean", "are cleaning", "cleaned", "will clean"]
-    },
-    {
-        "question": "She (     ) her friend this evening.",
-        "answer": "will call",
-        "choices": ["calls", "called", "is calling", "will call"]
-    },
-    {
-        "question": "I (     ) a letter now.",
-        "answer": "am writing",
-        "choices": ["write", "wrote", "am writing", "will write"]
-    },
-    {
-        "question": "He (     ) to bed at 10 every night.",
+        "sentence": "She (     ) to school by bus every day.",
         "answer": "goes",
-        "choices": ["is going", "goes", "went", "will go"]
+        "choices": ["is going", "went", "will go", "goes"]
+    },
+    {
+        "sentence": "He (     ) TV now.",
+        "answer": "is watching",
+        "choices": ["watched", "watches", "is watching", "will watch"]
+    },
+    {
+        "sentence": "We (     ) a movie tomorrow.",
+        "answer": "will watch",
+        "choices": ["watch", "watched", "are watching", "will watch"]
+    },
+    {
+        "sentence": "They (     ) in the park last Sunday.",
+        "answer": "walked",
+        "choices": ["walked", "walk", "are walking", "will walk"]
+    },
+    {
+        "sentence": "My brother (     ) computer games every weekend.",
+        "answer": "plays",
+        "choices": ["is playing", "played", "plays", "will play"]
+    },
+    {
+        "sentence": "Look! The baby (     ).",
+        "answer": "is sleeping",
+        "choices": ["sleeps", "slept", "will sleep", "is sleeping"]
+    },
+    {
+        "sentence": "I (     ) my grandmother next week.",
+        "answer": "will visit",
+        "choices": ["visit", "visited", "am visiting", "will visit"]
+    },
+    {
+        "sentence": "She (     ) a letter yesterday.",
+        "answer": "wrote",
+        "choices": ["writes", "is writing", "wrote", "will write"]
+    },
+    {
+        "sentence": "Tom (     ) up at seven every morning.",
+        "answer": "gets",
+        "choices": ["got", "gets", "is getting", "will get"]
+    },
+    {
+        "sentence": "We (     ) lunch now.",
+        "answer": "are having",
+        "choices": ["have", "had", "are having", "will have"]
+    },
+    {
+        "sentence": "It (     ) tomorrow.",
+        "answer": "will rain",
+        "choices": ["rains", "rained", "is raining", "will rain"]
+    },
+    {
+        "sentence": "He (     ) a new bike last month.",
+        "answer": "bought",
+        "choices": ["buys", "is buying", "bought", "will buy"]
     },
 ]
 
 # ---------------------------
 # 세션 상태 초기화
 # ---------------------------
-if "quiz_data" not in st.session_state:
-    quiz_data = question_data.copy()
-    random.shuffle(quiz_data)
-    st.session_state.quiz_data = quiz_data
-
 if "stage" not in st.session_state:
-    # stage 1: 전체 풀이
-    # stage 2: 오답 다시 풀이
+    # stage 1: 전체 문제 풀이
+    # stage 2: 오답 문제 다시 풀이
     # stage 3: 최종 결과 및 정답 공개
     st.session_state.stage = 1
 
@@ -186,7 +133,7 @@ if "final_score" not in st.session_state:
     st.session_state.final_score = 0
 
 # ---------------------------
-# 다시 시작 버튼
+# 다시 시작
 # ---------------------------
 if st.button("처음부터 다시 시작"):
     for key in list(st.session_state.keys()):
@@ -194,22 +141,31 @@ if st.button("처음부터 다시 시작"):
     st.rerun()
 
 st.markdown("---")
-quiz_data = st.session_state.quiz_data
+
+# ---------------------------
+# 문제 출력 함수
+# ---------------------------
+def show_question(i, item, key_prefix, label):
+    st.write(f"### {i+1}. {item['sentence']}")
+
+    st.radio(
+        label,
+        item["choices"],
+        key=f"{key_prefix}_{i}",
+        index=None
+    )
+
+    st.markdown("---")
 
 # ---------------------------
 # 1단계: 전체 문제 풀이
 # ---------------------------
 if st.session_state.stage == 1:
     st.subheader("1차 풀이")
+    st.caption("알맞은 시제 표현을 고르세요.")
 
     for i, item in enumerate(quiz_data):
-        st.write(f"### {i+1}. {item['question']}")
-        st.radio(
-            "알맞은 답을 고르세요.",
-            item["choices"],
-            key=f"q1_{i}",
-            index=None
-        )
+        show_question(i, item, "q1", "정답을 고르세요.")
 
     if st.button("1차 제출"):
         wrong_indices = []
@@ -217,6 +173,7 @@ if st.session_state.stage == 1:
 
         for i, item in enumerate(quiz_data):
             user_answer = st.session_state.get(f"q1_{i}")
+
             if user_answer == item["answer"]:
                 correct_count += 1
             else:
@@ -226,7 +183,7 @@ if st.session_state.stage == 1:
         st.session_state.wrong_indices = wrong_indices
 
         if len(wrong_indices) == 0:
-            st.session_state.final_score = 30
+            st.session_state.final_score = TOTAL_QUESTIONS
             st.session_state.stage = 3
         else:
             st.session_state.stage = 2
@@ -234,36 +191,28 @@ if st.session_state.stage == 1:
         st.rerun()
 
 # ---------------------------
-# 2단계: 오답 다시 풀기
+# 2단계: 오답 문제 다시 풀이
 # ---------------------------
 elif st.session_state.stage == 2:
-    first_score = st.session_state.first_score
-    wrong_indices = st.session_state.wrong_indices
-
     st.subheader("1차 결과")
-    st.write(f"점수: **{first_score} / 30**")
-    st.warning(f"틀린 문제 수: {len(wrong_indices)}문제")
+    st.write(f"점수: **{st.session_state.first_score} / {TOTAL_QUESTIONS}**")
+    st.warning(f"틀린 문제 수: {len(st.session_state.wrong_indices)}문제")
 
     st.markdown("---")
     st.subheader("오답 다시 풀기")
-    st.caption("틀린 문제만 다시 풀고 제출하세요. 이후 정답이 공개됩니다.")
+    st.caption("틀린 문제만 다시 풀어 보세요. 이 단계가 끝나면 정답이 공개됩니다.")
 
-    for idx in wrong_indices:
+    for idx in st.session_state.wrong_indices:
         item = quiz_data[idx]
-        st.write(f"### {idx+1}. {item['question']}")
-        st.radio(
-            "다시 정답을 고르세요.",
-            item["choices"],
-            key=f"q2_{idx}",
-            index=None
-        )
+        show_question(idx, item, "q2", "다시 정답을 고르세요.")
 
     if st.button("다시 풀기 제출"):
         additional_correct = 0
 
-        for idx in wrong_indices:
+        for idx in st.session_state.wrong_indices:
             item = quiz_data[idx]
             retry_answer = st.session_state.get(f"q2_{idx}")
+
             if retry_answer == item["answer"]:
                 additional_correct += 1
 
@@ -276,15 +225,16 @@ elif st.session_state.stage == 2:
 # ---------------------------
 elif st.session_state.stage == 3:
     st.subheader("최종 결과")
-    st.write(f"1차 점수: **{st.session_state.first_score} / 30**")
-    st.write(f"최종 점수: **{st.session_state.final_score} / 30**")
 
-    if st.session_state.final_score == 30:
+    st.write(f"1차 점수: **{st.session_state.first_score} / {TOTAL_QUESTIONS}**")
+    st.write(f"최종 점수: **{st.session_state.final_score} / {TOTAL_QUESTIONS}**")
+
+    if st.session_state.final_score == TOTAL_QUESTIONS:
         st.success("만점입니다!")
         st.balloons()
-    elif st.session_state.final_score >= 24:
+    elif st.session_state.final_score >= 16:
         st.success("아주 잘했습니다!")
-    elif st.session_state.final_score >= 18:
+    elif st.session_state.final_score >= 12:
         st.info("잘했습니다.")
     else:
         st.warning("조금 더 연습해 봅시다.")
@@ -296,22 +246,23 @@ elif st.session_state.stage == 3:
         first_answer = st.session_state.get(f"q1_{i}")
         second_answer = st.session_state.get(f"q2_{i}") if f"q2_{i}" in st.session_state else None
 
-        st.write(f"### {i+1}. {item['question']}")
+        st.write(f"### {i+1}. {item['sentence']}")
         st.write(f"- 정답: **{item['answer']}**")
 
         if second_answer is not None:
             st.write(f"- 1차 선택: {first_answer if first_answer else '미응답'}")
             st.write(f"- 2차 선택: {second_answer if second_answer else '미응답'}")
-        else:
-            st.write(f"- 선택: {first_answer if first_answer else '미응답'}")
 
-        if second_answer is not None:
             if second_answer == item["answer"]:
                 st.success("최종 정답")
             else:
                 st.error("최종 오답")
         else:
+            st.write(f"- 선택: {first_answer if first_answer else '미응답'}")
+
             if first_answer == item["answer"]:
                 st.success("정답")
             else:
                 st.error("오답")
+
+        st.markdown("---")
