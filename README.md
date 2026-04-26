@@ -16,9 +16,9 @@ The app utilizes 20 middle school-level English words and 30 first-year high sch
 ## 4. What Users Can Learn or Do
 Users can:
 - practice vocabulary
-- match English words with their meanings.
-- find the correct answers with the help of images or audio.
-- review and restudy only the words they answered incorrectly.
+- match English words with their meanings
+- find the correct answers with the help of images or audio
+- review and restudy only the words they answered incorrectly
  
 ## 5. Classroom or Self-Study Use
 This app can be used for:
@@ -37,7 +37,7 @@ The app consists of the following parts:
 - vocabulary list display
   
 ## 7. Difficulties or Limitations
-One limitation is that the app currently does not track long-term learning progress for individual students
+One limitation is that the app currently does not track long-term learning progress for individual students.
 Another limitation is that the app cannot save or sync user learning data across different devices.
 
 ## 8. Further Improvement
