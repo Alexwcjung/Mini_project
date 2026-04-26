@@ -114,15 +114,139 @@ with tabs[2]:
 
 # --- Tab 4: Timer ---
 with tabs[3]:
-    huggingface_space_url = "https://MK-316-mytimer.hf.space"
-    st.components.v1.html(
-        f"""
-        <iframe src="{huggingface_space_url}" width="100%" height="600px" frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-        """,
-        height=600
-    )
+    st.subheader("⏳ Classroom Timer")
+    st.caption("Set the time and click Start.")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        timer_min = st.number_input("Minutes", min_value=0, max_value=180, value=5, step=1)
+
+    with col2:
+        timer_sec = st.number_input("Seconds", min_value=0, max_value=59, value=0, step=5)
+
+    with col3:
+        st.write("")
+        st.write("")
+        st.info(f"Set time: {timer_min:02d}:{timer_sec:02d}")
+
+    total_seconds = timer_min * 60 + timer_sec
+
+    timer_html = f"""
+    <div style="
+        width: 100%;
+        max-width: 700px;
+        margin: 20px auto;
+        padding: 30px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, #f8fbff, #eef5ff);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        text-align: center;
+        font-family: Arial, sans-serif;
+    ">
+        <div id="timerDisplay" style="
+            font-size: 90px;
+            font-weight: 800;
+            color: #1f4e79;
+            margin-bottom: 25px;
+        ">
+            {timer_min:02d}:{timer_sec:02d}
+        </div>
+
+        <button onclick="startTimer()" style="
+            font-size: 24px;
+            padding: 12px 28px;
+            margin: 8px;
+            border: none;
+            border-radius: 12px;
+            background-color: #2e86de;
+            color: white;
+            cursor: pointer;
+        ">Start</button>
+
+        <button onclick="pauseTimer()" style="
+            font-size: 24px;
+            padding: 12px 28px;
+            margin: 8px;
+            border: none;
+            border-radius: 12px;
+            background-color: #f39c12;
+            color: white;
+            cursor: pointer;
+        ">Pause</button>
+
+        <button onclick="resetTimer()" style="
+            font-size: 24px;
+            padding: 12px 28px;
+            margin: 8px;
+            border: none;
+            border-radius: 12px;
+            background-color: #e74c3c;
+            color: white;
+            cursor: pointer;
+        ">Reset</button>
+
+        <p id="message" style="
+            margin-top: 25px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #d63031;
+        "></p>
+    </div>
+
+    <script>
+        let initialTime = {total_seconds};
+        let remainingTime = initialTime;
+        let timerInterval = null;
+
+        function updateDisplay() {{
+            let minutes = Math.floor(remainingTime / 60);
+            let seconds = remainingTime % 60;
+
+            document.getElementById("timerDisplay").innerHTML =
+                String(minutes).padStart(2, '0') + ":" + String(seconds).padStart(2, '0');
+        }}
+
+        function startTimer() {{
+            if (timerInterval !== null) {{
+                return;
+            }}
+
+            document.getElementById("message").innerHTML = "";
+
+            timerInterval = setInterval(function() {{
+                if (remainingTime > 0) {{
+                    remainingTime--;
+                    updateDisplay();
+                }} else {{
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    document.getElementById("message").innerHTML = "Time's up!";
+                    
+                    let audio = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
+                    audio.play();
+                }}
+            }}, 1000);
+        }}
+
+        function pauseTimer() {{
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }}
+
+        function resetTimer() {{
+            clearInterval(timerInterval);
+            timerInterval = null;
+            remainingTime = initialTime;
+            document.getElementById("message").innerHTML = "";
+            updateDisplay();
+        }}
+
+        updateDisplay();
+    </script>
+    """
+
+    components.html(timer_html, height=450)
 
 # --- Tab 3: ✅ NEW WordCloud ---
 with tabs[4]:
