@@ -18,7 +18,7 @@ def create_wordcloud(text):
 
 # Streamlit tabs (✅ WordCloud tab inserted as 4th)
 tabs = st.tabs([
-    "✏️Blackboard", "🎨Drawing", "📈QR", "⏳Timer",
+    "✏️Blackboard", "🎨Drawing", "🔳QR code", "⏳Timer",
     "☁️WordCloud",           # ✅ NEW 4th tab
     "🔊Multi-TTS", "👥Grouping"
 ])
