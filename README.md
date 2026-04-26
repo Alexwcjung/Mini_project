@@ -1,1 +1,1 @@
-# Applied-linguistics
+# Mini-Project
