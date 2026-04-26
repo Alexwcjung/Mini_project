@@ -1,54 +1,47 @@
 import streamlit as st
 
+# ---------------------------
+# Top Card
+# ---------------------------
 st.markdown(
     """
     <div style="
-        background: linear-gradient(135deg, #ffffff 0%, #f3f8ff 55%, #eef6ff 100%);
+        background: linear-gradient(135deg, #ffffff, #eef6ff);
         border: 1.5px solid #d9e7ff;
-        border-radius: 34px;
-        padding: 42px 34px;
+        border-radius: 30px;
+        padding: 40px 30px;
         text-align: center;
-        box-shadow: 0 10px 28px rgba(31,78,121,0.12);
-        margin-bottom: 32px;
-        position: relative;
-        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(31,78,121,0.12);
+        margin-bottom: 30px;
     ">
-        <div style="
-            font-size: 64px;
-            margin-bottom: 10px;
-            letter-spacing: 6px;
-        ">
+        <div style="font-size: 62px; margin-bottom: 12px;">
             🌱 📚 ✨
         </div>
-
         <div style="
             display: inline-block;
             background-color: #eaf3ff;
             color: #1f4e79;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 700;
-            padding: 7px 16px;
+            padding: 8px 18px;
             border-radius: 999px;
             margin-bottom: 18px;
         ">
             Fun English · Spring 2026
         </div>
-
         <h1 style="
             color:#1f4e79;
-            margin: 8px 0 14px 0;
             font-size: 42px;
             font-weight: 800;
-            letter-spacing: -0.5px;
+            margin: 12px 0 16px 0;
         ">
             Welcome to Fun English!
         </h1>
-
         <p style="
-            font-size:23px;
-            line-height:1.75;
-            color:#34495e;
-            margin:0 auto;
+            font-size: 22px;
+            line-height: 1.7;
+            color: #34495e;
+            margin: 0 auto;
             max-width: 780px;
         ">
             Learn English step by step through words, listening, speaking, reading, and fun activities.
@@ -58,6 +51,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+# ---------------------------
+# Course Objectives
+# ---------------------------
 st.markdown(
     """
     <h2 style="
@@ -98,6 +94,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+# ---------------------------
+# Goal
+# ---------------------------
 st.markdown(
     """
     <h2 style="
