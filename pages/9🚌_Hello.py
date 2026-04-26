@@ -1,13 +1,28 @@
 import streamlit as st
 import random
+from gtts import gTTS
+import io
 
 st.set_page_config(page_title="Easy English Word Quiz", layout="centered")
 
 st.title("✨Alex선생님과 함께하는 영어 단어 퀴즈🚀")
-st.caption("30개의 쉬운 영어 단어 뜻 맞히기 · 3지선다 퀴즈")
+st.caption("20개의 쉬운 영어 단어 뜻 맞히기 · 3지선다 퀴즈 · 듣기 포함")
+
+TOTAL_QUESTIONS = 20
 
 # ---------------------------
-# 단어 목록 (30개)
+# 단어 듣기 함수
+# ---------------------------
+@st.cache_data
+def make_audio(word):
+    tts = gTTS(text=word, lang="en", tld="com", slow=False)
+    audio_fp = io.BytesIO()
+    tts.write_to_fp(audio_fp)
+    audio_fp.seek(0)
+    return audio_fp.getvalue()
+
+# ---------------------------
+# 단어 목록 20개
 # ---------------------------
 word_data = [
     {"word": "run", "answer": "달리다", "choices": ["달리다", "말하다", "축구하다"]},
@@ -30,16 +45,6 @@ word_data = [
     {"word": "cry", "answer": "울다", "choices": ["울다", "찾다", "잃어버리다"]},
     {"word": "sing", "answer": "노래하다", "choices": ["노래하다", "일어나다", "공부하다"]},
     {"word": "swim", "answer": "수영하다", "choices": ["수영하다", "요리하다", "청소하다"]},
-    {"word": "listen", "answer": "듣다", "choices": ["듣다", "밀다", "운전하다"]},
-    {"word": "look", "answer": "보다", "choices": ["자르다", "보다", "씹다"]},
-    {"word": "give", "answer": "주다", "choices": ["주다", "빌리다", "가르치다"]},
-    {"word": "take", "answer": "가지다", "choices": ["놓다", "가지다", "기다리다"]},
-    {"word": "make", "answer": "만들다", "choices": ["만들다", "깨뜨리다", "보내다"]},
-    {"word": "help", "answer": "돕다", "choices": ["잊다", "돕다", "눕다"]},
-    {"word": "play", "answer": "놀다", "choices": ["놀다", "울다", "붙잡다"]},
-    {"word": "study", "answer": "공부하다", "choices": ["공부하다", "춤추다", "숨다"]},
-    {"word": "wash", "answer": "씻다", "choices": ["씻다", "팔다", "옮기다"]},
-    {"word": "cook", "answer": "요리하다", "choices": ["요리하다", "열다", "고르다"]},
 ]
 
 # ---------------------------
@@ -51,9 +56,6 @@ if "quiz_data" not in st.session_state:
     st.session_state.quiz_data = quiz_data
 
 if "stage" not in st.session_state:
-    # stage 1: 전체 문제 풀이
-    # stage 2: 오답 문제 다시 풀이
-    # stage 3: 최종 결과 및 정답 공개
     st.session_state.stage = 1
 
 if "wrong_indices" not in st.session_state:
@@ -82,9 +84,14 @@ quiz_data = st.session_state.quiz_data
 # ---------------------------
 if st.session_state.stage == 1:
     st.subheader("1차 풀이")
+    st.caption("단어를 보고, 듣고, 알맞은 뜻을 고르세요.")
 
     for i, item in enumerate(quiz_data):
         st.write(f"### {i+1}. {item['word']}")
+
+        audio_bytes = make_audio(item["word"])
+        st.audio(audio_bytes, format="audio/mp3")
+
         st.radio(
             "뜻을 고르세요.",
             item["choices"],
@@ -92,12 +99,15 @@ if st.session_state.stage == 1:
             index=None
         )
 
+        st.markdown("---")
+
     if st.button("1차 제출"):
         wrong_indices = []
         correct_count = 0
 
         for i, item in enumerate(quiz_data):
             user_answer = st.session_state.get(f"q1_{i}")
+
             if user_answer == item["answer"]:
                 correct_count += 1
             else:
@@ -107,7 +117,7 @@ if st.session_state.stage == 1:
         st.session_state.wrong_indices = wrong_indices
 
         if len(wrong_indices) == 0:
-            st.session_state.final_score = 30
+            st.session_state.final_score = TOTAL_QUESTIONS
             st.session_state.stage = 3
         else:
             st.session_state.stage = 2
@@ -122,16 +132,20 @@ elif st.session_state.stage == 2:
     wrong_indices = st.session_state.wrong_indices
 
     st.subheader("1차 결과")
-    st.write(f"점수: **{first_score} / 30**")
+    st.write(f"점수: **{first_score} / {TOTAL_QUESTIONS}**")
     st.warning(f"틀린 문제 수: {len(wrong_indices)}문제")
 
     st.markdown("---")
     st.subheader("오답 다시 풀기")
-    st.caption("아래는 틀린 문제만 다시 푸는 단계입니다. 이 단계가 끝나면 정답이 공개됩니다.")
+    st.caption("틀린 문제만 다시 풀어 보세요. 다시 듣기도 가능합니다.")
 
     for idx in wrong_indices:
         item = quiz_data[idx]
         st.write(f"### {idx+1}. {item['word']}")
+
+        audio_bytes = make_audio(item["word"])
+        st.audio(audio_bytes, format="audio/mp3")
+
         st.radio(
             "다시 뜻을 고르세요.",
             item["choices"],
@@ -139,12 +153,15 @@ elif st.session_state.stage == 2:
             index=None
         )
 
+        st.markdown("---")
+
     if st.button("다시 풀기 제출"):
         additional_correct = 0
 
         for idx in wrong_indices:
             item = quiz_data[idx]
             retry_answer = st.session_state.get(f"q2_{idx}")
+
             if retry_answer == item["answer"]:
                 additional_correct += 1
 
@@ -157,15 +174,15 @@ elif st.session_state.stage == 2:
 # ---------------------------
 elif st.session_state.stage == 3:
     st.subheader("최종 결과")
-    st.write(f"1차 점수: **{st.session_state.first_score} / 30**")
-    st.write(f"최종 점수: **{st.session_state.final_score} / 30**")
+    st.write(f"1차 점수: **{st.session_state.first_score} / {TOTAL_QUESTIONS}**")
+    st.write(f"최종 점수: **{st.session_state.final_score} / {TOTAL_QUESTIONS}**")
 
-    if st.session_state.final_score == 30:
+    if st.session_state.final_score == TOTAL_QUESTIONS:
         st.success("만점입니다!")
         st.balloons()
-    elif st.session_state.final_score >= 24:
+    elif st.session_state.final_score >= 16:
         st.success("아주 잘했습니다!")
-    elif st.session_state.final_score >= 18:
+    elif st.session_state.final_score >= 12:
         st.info("잘했습니다.")
     else:
         st.warning("조금 더 연습해 봅시다.")
@@ -178,6 +195,10 @@ elif st.session_state.stage == 3:
         second_answer = st.session_state.get(f"q2_{i}") if f"q2_{i}" in st.session_state else None
 
         st.write(f"### {i+1}. {item['word']}")
+
+        audio_bytes = make_audio(item["word"])
+        st.audio(audio_bytes, format="audio/mp3")
+
         st.write(f"- 정답: **{item['answer']}**")
 
         if second_answer is not None:
@@ -196,3 +217,5 @@ elif st.session_state.stage == 3:
                 st.success("정답")
             else:
                 st.error("오답")
+
+        st.markdown("---")
