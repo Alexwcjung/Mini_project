@@ -3,7 +3,6 @@ import streamlit as st
 st.set_page_config(page_title="Tense Practice", layout="centered")
 
 st.title("⏳ Tense Practice")
-st.caption("현재형, 현재진행형, 과거형, 미래형 중 알맞은 표현을 고르세요.")
 
 st.title("⏳ Tense Practice")
 st.caption("현재형, 현재진행형, 과거형, 미래형 중 알맞은 표현을 고르세요.")
