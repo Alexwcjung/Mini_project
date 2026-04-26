@@ -2,7 +2,7 @@ import streamlit as st
 import random
 from gtts import gTTS
 import io
-import base64
+import base64  # 모바일 오디오 호환을 위해 추가된 모듈
 
 st.set_page_config(page_title="Voca Master Quiz", layout="centered")
 
@@ -71,13 +71,13 @@ if "quiz_data" not in st.session_state:
         # 1~15번: 영어 -> 뜻
         if i < 15:
             q_type = "en2ko"
-            question_text = f"**{d['en']}**"  # 질문 문구 삭제
+            question_text = f"**{d['en']}**"
             answer = d["ko"]
             wrong_choices = random.sample([k for k in all_ko if k != answer], 2)
         # 16~30번: 뜻 -> 영어
         else:
             q_type = "ko2en"
-            question_text = f"**{d['ko']}**"  # 질문 문구 삭제
+            question_text = f"**{d['ko']}**"
             answer = d["en"]
             wrong_choices = random.sample([e for e in all_en if e != answer], 2)
             
@@ -120,8 +120,8 @@ quiz_data = st.session_state.quiz_data
 # 1단계: 전체 문제 풀이 (오디오/힌트 없음)
 # ---------------------------
 if st.session_state.stage == 1:
-    st.subheader("Lesson1 단어 복습")  # 제목 수정
-    st.caption("영어 단어와 알맞은 한글 뜻을 골라주세요.")  # 설명 수정
+    st.subheader("Lesson1 단어 복습")
+    st.caption("영어 단어와 알맞은 한글 뜻을 골라주세요.")
     
     for i, item in enumerate(quiz_data):
         st.write(f"### Q{i+1}. {item['question']}")
@@ -246,14 +246,15 @@ elif st.session_state.stage == 3:
     st.subheader("🎧 전체 단어 발음 듣기")
     st.caption("수고하셨습니다! 마지막으로 전체 단어의 발음을 들으며 복습해 보세요.")
     
-    # 마지막 페이지에서만 전체 오디오 제공
-  for i, item in enumerate(quiz_data):
+    # 마지막 페이지에서만 전체 오디오 제공 (모바일 호환을 위해 Base64 HTML 플레이어 사용)
+    for i, item in enumerate(quiz_data):
         col1, col2 = st.columns([3, 1])
         with col1:
             st.write(f"**{i+1}. {item['en']}** : {item['ko']} {item['emoji']}")
         with col2:
             audio_bytes = make_audio(item["en"])
             
+            # Base64로 인코딩 후 HTML 오디오 태그로 삽입
             b64 = base64.b64encode(audio_bytes).decode()
             audio_html = f"""
                 <audio controls style="width: 100%;">
