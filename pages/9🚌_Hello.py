@@ -1,5 +1,4 @@
 import streamlit as st
-import random
 from gtts import gTTS
 import io
 
@@ -23,6 +22,7 @@ def make_audio(word):
 
 # ---------------------------
 # 단어 목록 20개
+# 학생마다 같은 순서로 나오도록 random.shuffle 사용 안 함
 # ---------------------------
 word_data = [
     {"word": "run", "answer": "달리다", "choices": ["달리다", "말하다", "축구하다"]},
@@ -51,11 +51,12 @@ word_data = [
 # 세션 상태 초기화
 # ---------------------------
 if "quiz_data" not in st.session_state:
-    quiz_data = word_data.copy()
-    random.shuffle(quiz_data)
-    st.session_state.quiz_data = quiz_data
+    st.session_state.quiz_data = word_data.copy()
 
 if "stage" not in st.session_state:
+    # stage 1: 전체 문제 풀이
+    # stage 2: 오답 문제 다시 풀이
+    # stage 3: 최종 결과 및 정답 공개
     st.session_state.stage = 1
 
 if "wrong_indices" not in st.session_state:
