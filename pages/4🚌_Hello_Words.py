@@ -5,7 +5,7 @@ import io
 st.set_page_config(page_title="Easy English Word Quiz", layout="centered")
 
 st.title("✨Alex선생님과 함께하는 영어 단어 퀴즈🚌")
-st.caption("그림을 보고, 발음을 듣고, 영어 단어의 뜻을 고르세요.")
+st.caption("영어 단어를 보고, 그림과 발음을 확인한 뒤 알맞은 뜻을 고르세요.")
 
 TOTAL_QUESTIONS = 20
 
@@ -103,9 +103,13 @@ quiz_data = st.session_state.quiz_data
 # ---------------------------
 def show_question(i, item, radio_key, label):
     picture = item.get("picture", "❓")
+    word_display = item["word"].capitalize()
 
-    st.write(f"### {i+1}. Listen and choose the meaning.")
+    # 1. 문제 번호 + 영어 단어 표시
+    st.write(f"### {i+1}. {word_display}")
+    st.caption("Listen, look at the picture, and choose the meaning.")
 
+    # 2. 작은 그림 표시
     st.markdown(
         f"""
         <div style="
@@ -130,9 +134,11 @@ def show_question(i, item, radio_key, label):
         unsafe_allow_html=True
     )
 
+    # 3. 발음 듣기
     audio_bytes = make_audio(item["word"])
     st.audio(audio_bytes, format="audio/mp3")
 
+    # 4. 3지선다
     st.radio(
         label,
         item["choices"],
@@ -148,7 +154,7 @@ def show_question(i, item, radio_key, label):
 # ---------------------------
 if st.session_state.stage == 1:
     st.subheader("1차 풀이")
-    st.caption("문제를 보고, 그림과 발음을 확인한 뒤 알맞은 뜻을 고르세요.")
+    st.caption("영어 단어를 보고, 그림과 발음을 확인한 뒤 알맞은 뜻을 고르세요.")
 
     for i, item in enumerate(quiz_data):
         show_question(i, item, f"q1_{i}", "뜻을 고르세요.")
