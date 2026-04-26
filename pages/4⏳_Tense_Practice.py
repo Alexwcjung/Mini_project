@@ -3,50 +3,31 @@ import streamlit as st
 st.set_page_config(page_title="Tense Practice", layout="centered")
 
 st.title("⏳ Tense Practice")
-
-st.title("⏳ Tense Practice")
 st.caption("현재형, 현재진행형, 과거형, 미래형 중 알맞은 표현을 고르세요.")
 
-st.markdown(
-    """
-    <div style="
-        background-color: #f8fbff;
-        border: 1.5px solid #dfe8ff;
-        border-radius: 18px;
-        padding: 20px 24px;
-        margin-top: 12px;
-        margin-bottom: 24px;
-        font-size: 18px;
-        line-height: 1.8;
-    ">
-        <h3 style="margin-top:0; color:#1f4e79;">📌 시제 간단 정리</h3>
+# ---------------------------
+# 시제 설명
+# ---------------------------
+with st.expander("📌 시제 간단 정리", expanded=True):
+    st.markdown("### ✅ 현재형")
+    st.write("항상 일어나는 일이나 반복되는 일을 말할 때 사용합니다.")
+    st.write("예) I **eat** breakfast every morning.")
 
-        <p>
-            ✅ <b>현재형</b>: 항상 일어나는 일이나 반복되는 일을 말할 때 사용합니다.<br>
-            <span style="color:#555;">예) I <b>eat</b> breakfast every morning.</span>
-        </p>
+    st.markdown("### ✅ 현재진행형")
+    st.write("지금 하고 있는 일을 말할 때 사용합니다.")
+    st.write("형태: **be동사 + 동사-ing**")
+    st.write("예) She **is reading** a book now.")
 
-        <p>
-            ✅ <b>현재진행형</b>: 지금 하고 있는 일을 말할 때 사용합니다. 
-            <b>be동사 + 동사-ing</b><br>
-            <span style="color:#555;">예) She <b>is reading</b> a book now.</span>
-        </p>
+    st.markdown("### ✅ 과거형")
+    st.write("이미 일어난 일을 말할 때 사용합니다.")
+    st.write("형태: 규칙동사는 보통 **동사 + ed**")
+    st.write("예) They **played** soccer yesterday.")
 
-        <p>
-            ✅ <b>과거형</b>: 이미 일어난 일을 말할 때 사용합니다. 
-            규칙동사는 보통 <b>동사 + ed</b><br>
-            <span style="color:#555;">예) They <b>played</b> soccer yesterday.</span>
-        </p>
+    st.markdown("### ✅ 미래형")
+    st.write("앞으로 일어날 일을 말할 때 사용합니다.")
+    st.write("형태: **will + 동사원형**")
+    st.write("예) He **will meet** his friend tomorrow.")
 
-        <p style="margin-bottom:0;">
-            ✅ <b>미래형</b>: 앞으로 일어날 일을 말할 때 사용합니다. 
-            <b>will + 동사원형</b><br>
-            <span style="color:#555;">예) He <b>will meet</b> his friend tomorrow.</span>
-        </p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
 TOTAL_QUESTIONS = 20
 
 quiz_data = [
@@ -104,7 +85,6 @@ if "celebration_shown" not in st.session_state:
 if "second_celebration_shown" not in st.session_state:
     st.session_state.second_celebration_shown = False
 
-
 # ---------------------------
 # 다시 시작
 # ---------------------------
@@ -114,7 +94,6 @@ if st.button("처음부터 다시 시작"):
     st.rerun()
 
 st.markdown("---")
-
 
 # ---------------------------
 # 문제 출력 함수
@@ -130,7 +109,6 @@ def show_question(i, item, key_prefix, label):
     )
 
     st.markdown("---")
-
 
 # ---------------------------
 # 1단계: 전체 문제 풀이
@@ -161,7 +139,6 @@ if st.session_state.stage == 1:
 
         st.rerun()
 
-
 # ---------------------------
 # 1.5단계: 1차 응원 화면
 # ---------------------------
@@ -174,33 +151,11 @@ elif st.session_state.stage == 1.5:
         st.session_state.celebration_shown = True
 
     st.subheader("🎉 1차 풀이 완료!")
+    st.success("잘했어요! 끝까지 문제를 푼 것만으로도 훌륭합니다.")
 
-    st.markdown(
-        f"""
-        <div style="
-            background-color: #f8fbff;
-            border: 2px solid #dfe8ff;
-            border-radius: 22px;
-            padding: 28px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            margin-bottom: 20px;
-        ">
-            <div style="font-size: 56px;">👏👏👏</div>
-            <h2 style="color:#1f4e79;">잘했어요!</h2>
-            <p style="font-size:22px;">
-                1차에서 <b>{score}문제</b>를 맞혔습니다.
-            </p>
-            <p style="font-size:20px;">
-                다시 풀 문제는 <b>{wrong_count}문제</b>입니다.
-            </p>
-            <p style="font-size:18px; color:#555;">
-                틀린 문제는 실패가 아니라, 다시 배울 기회입니다!
-            </p>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    st.write(f"1차에서 **{score}문제**를 맞혔습니다.")
+    st.write(f"다시 풀 문제는 **{wrong_count}문제**입니다.")
+    st.info("틀린 문제는 실패가 아니라, 다시 배울 기회입니다!")
 
     st.progress(score / TOTAL_QUESTIONS)
 
@@ -211,12 +166,9 @@ elif st.session_state.stage == 1.5:
             st.session_state.stage = 3
             st.rerun()
     else:
-        st.info("이제 2차에서 틀린 문제만 다시 풀어 봅시다. 충분히 할 수 있습니다!")
-
         if st.button("2차 오답 다시 풀기 시작하기"):
             st.session_state.stage = 2
             st.rerun()
-
 
 # ---------------------------
 # 2단계: 오답 문제 다시 풀이
@@ -254,7 +206,6 @@ elif st.session_state.stage == 2:
 
         st.rerun()
 
-
 # ---------------------------
 # 2.5단계: 2차 응원 화면
 # ---------------------------
@@ -269,33 +220,11 @@ elif st.session_state.stage == 2.5:
         st.session_state.second_celebration_shown = True
 
     st.subheader("🌟 2차 풀이 완료!")
+    st.success("끝까지 다시 도전한 것이 정말 멋집니다!")
 
-    st.markdown(
-        f"""
-        <div style="
-            background-color: #fffdf7;
-            border: 2px solid #ffe7b8;
-            border-radius: 22px;
-            padding: 28px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            margin-bottom: 20px;
-        ">
-            <div style="font-size: 56px;">💪🔥✨</div>
-            <h2 style="color:#b35c00;">끝까지 도전한 것이 정말 멋집니다!</h2>
-            <p style="font-size:22px;">
-                2차에서 <b>{retry_total}문제 중 {second_score}문제</b>를 다시 맞혔습니다.
-            </p>
-            <p style="font-size:20px;">
-                현재 최종 점수는 <b>{final_score} / {TOTAL_QUESTIONS}</b>입니다.
-            </p>
-            <p style="font-size:18px; color:#555;">
-                한 번 틀린 문제를 다시 맞혔다는 것은, 실력이 올라가고 있다는 뜻입니다.
-            </p>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    st.write(f"2차에서 **{retry_total}문제 중 {second_score}문제**를 다시 맞혔습니다.")
+    st.write(f"현재 최종 점수는 **{final_score} / {TOTAL_QUESTIONS}**입니다.")
+    st.info("한 번 틀린 문제를 다시 맞혔다는 것은, 실력이 올라가고 있다는 뜻입니다.")
 
     st.progress(final_score / TOTAL_QUESTIONS)
 
@@ -307,7 +236,6 @@ elif st.session_state.stage == 2.5:
     if st.button("최종 결과와 정답 확인하기"):
         st.session_state.stage = 3
         st.rerun()
-
 
 # ---------------------------
 # 3단계: 최종 결과 + 정답 공개
