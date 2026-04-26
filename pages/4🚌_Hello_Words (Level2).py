@@ -70,13 +70,13 @@ if "quiz_data" not in st.session_state:
         # 1~15번: 영어 -> 뜻
         if i < 15:
             q_type = "en2ko"
-            question_text = f"**{d['en']}**의 알맞은 뜻은 무엇일까요?"
+            question_text = f"**{d['en']}**"  # 질문 문구 삭제
             answer = d["ko"]
             wrong_choices = random.sample([k for k in all_ko if k != answer], 2)
         # 16~30번: 뜻 -> 영어
         else:
             q_type = "ko2en"
-            question_text = f"**'{d['ko']}'**에 알맞은 영어 단어는 무엇일까요?"
+            question_text = f"**{d['ko']}**"  # 질문 문구 삭제
             answer = d["en"]
             wrong_choices = random.sample([e for e in all_en if e != answer], 2)
             
@@ -119,8 +119,8 @@ quiz_data = st.session_state.quiz_data
 # 1단계: 전체 문제 풀이 (오디오/힌트 없음)
 # ---------------------------
 if st.session_state.stage == 1:
-    st.subheader("1차 문제 풀이")
-    st.caption("알맞은 정답을 골라주세요.")
+    st.subheader("Lesson1 단어 복습")  # 제목 수정
+    st.caption("영어 단어와 알맞은 한글 뜻을 골라주세요.")  # 설명 수정
     
     for i, item in enumerate(quiz_data):
         st.write(f"### Q{i+1}. {item['question']}")
