@@ -1,6 +1,5 @@
 import streamlit as st
 
-st.title("📚 Course Overview")
 st.caption("Fun English · Spring 2026")
 
 st.markdown(
